@@ -1,0 +1,17 @@
+vote-demo-results:
+  image: rancher/load-balancer-service
+  ports:
+    - 8002:8002
+  links:
+    - vote-demo-results-app:vote-demo-results-app
+
+vote-demo-results-app:
+  image: jgreat/vote-demo-results:jgreat_vote-demo-results_feature-init-release_1.0.0_1_3eeaa99c
+  expose:
+    - 8002
+  environment:
+    RANCHER_SERVICE_DISCOVERY: 'true'
+    LISTEN_PORT: 8002
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
